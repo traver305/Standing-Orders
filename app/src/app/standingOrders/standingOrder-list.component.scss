@@ -1,0 +1,104 @@
+* {
+    margin: 0%;
+    padding: 0%; 
+}
+
+.container-header {
+    background-color: #bab1f0;
+    padding: 30px;
+    margin: 5px;
+    max-width: auto;
+    width: auto;
+    color: #2f2570;
+    text-align: left;
+}
+
+#title {
+    font-weight: bolder;
+    font-size: large;
+    padding-bottom: 15px;
+}
+
+.container-body {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#body-header{
+    background-color: #bab1f0;
+    padding: 10px;
+}
+
+#body-header button {
+    float: right;
+}
+
+#table-container{
+    padding: 5px;
+    width: auto;
+    border: 1px solid gray;
+}
+
+table{
+    border: 1px solid gray;
+    width: 100%;
+}
+
+#body-footer{
+    background-color: #bab1f0;
+    padding: 10px;
+}
+
+#body-footer .col{
+    color: #2f2570;
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mat-column-date{
+    width: 15%;
+    border-right: 1px solid gray;
+    font-weight: bold;
+}
+
+.mat-column-amount{
+    width: 15%;
+    font-weight: bold;
+}
+
+.mat-column-info{
+    width: auto;
+    border-right: 1px solid gray;
+}
+
+.mat-column-info button{
+    transform: scale(0.7);
+}
+
+.mat-column-info #info-root{
+    margin-left: 2%;
+    width: auto;
+}
+
+.mat-column-info #name{
+    font-weight: bold;
+}
+
+#interval{
+    background-color: #5b5775;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #fff;
+    font-size: small;
+}
+       
+.mat-row:nth-child(odd){
+    background-color: #adadadae;
+}
+
+
+
+
+
