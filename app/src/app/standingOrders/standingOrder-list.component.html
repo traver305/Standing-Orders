@@ -1,87 +1,74 @@
-<div class="container">
-    <div class="container-header"> 
-        <div class="child" id="title">
-            Prehľad trvalých príkazov
-        </div>
-        <div class="child">
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="m-2">Prehľad trvalých príkazov</h1>
+    </div>
+    <div class="row">
+        <p class="m-2">
             Trvalé príkazy sú ideálne, keď potrebujete pravidelne posielať platby v rovnakej výške.
             Tu ich môžete upravovať alebo vytvárať.
-        </div>       
+        </p>
     </div>
-    <div class="container-body">
-        <div class="container"> 
-            <div class="row" id="body-header">
-                <div class="col-9">
-                </div>
-                <div class="col-3">
-                    <button mat-raised-button color="primary">Nový trvalý príkaz</button>
-            </div>
+</div>
+<div class="container-md mt-1">
+    <div class="row">
+        <div class="col-9">
         </div>
-        <div class="container" id="table-container">
-                <table mat-table [dataSource]="orders" class="mat-elevation-z0">
-                    <ng-container matColumnDef="date">
-                      <th mat-header-cell *matHeaderCellDef> Date </th>
-                      <td mat-cell *matCellDef="let element"> {{element.nextRealizationDate | date:'d MMM'}} </td>
-                    </ng-container>
-    
-                    <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef> Amount </th>
-                        <td mat-cell *matCellDef="let element"> {{ (-1) * element.amount  | currency:'EUR':true:'1.2-2' }} </td>
-                    </ng-container>
+        <div class="col-3">
+            <button mat-raised-button color="primary" class="my-2">Nový trvalý príkaz</button>
+        </div>
+    </div>
+    <div class="row" id="table-row">
+        <table mat-table [dataSource]="orders" class="mat-elevation-z0 py-1">
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.nextRealizationDate | date:'d MMM'}} </td>
+            </ng-container>
 
-                    <ng-container matColumnDef="info">
-                        <th mat-header-cell *matHeaderCellDef> Info </th>
-                        <td mat-cell *matCellDef="let element">
-                            <div class="container" id="info-root">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <div class="container">
-                                            <div class="row" id="name">
-                                                {{ element.name | uppercase }}
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <span id="interval">
-                                                        {{ element.interval }}
-                                                    </span>
-                                                </div>
-                                                <div class="col-9">
-                                                    IBAN: {{ element.accountNumber | ibanFormat}}
-                                                </div>
-                                            </div>
-                                        </div>
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{ (-1) * element.amount  | currency:'EUR':true:'1.2-2' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="info">
+                <th mat-header-cell *matHeaderCellDef> Info </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="container">
+                                    <div class="row" id="name">
+                                        {{ element.name | uppercase }}
                                     </div>
-                                    <div class="col-3">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button mat-raised-button color="primary">Upraviť</button>
-                                                </div>
-                                                <div class="col">
-                                                    <button mat-raised-button color="primary">Zrušiť</button>
-                                                </div>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <span id="interval">
+                                                {{ element.interval }}
+                                            </span>
+                                        </div>
+                                        <div class="col-9">
+                                            IBAN: {{ element.accountNumber | ibanFormat}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </ng-container>
-                  
-                    <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr> -->
-                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-                  </table>
-            
+                            <div class="col-3" id="hide">
+                                <button mat-raised-button color="primary">Upraviť</button>
+                                <button mat-raised-button color="primary">Zrušiť</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr> -->
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+    </div>
+    <div class="row" id="footer">
+        <div class="col my-3">
+            Počet trvalých príkazov: {{ orders.length }}
         </div>
-        <div class="container">
-            <div class="row" id="body-footer">
-                <div class="col">
-                    Počet trvalých príkazov: {{ orders.length }}
-                </div>
-                <div class="col">
-                    Celková suma: {{ (-1) * sumOfAmount() | currency:'EUR':true:'1.2-2' }}
-                </div>
-            </div>
+        <div class="col my-3">
+            Celková suma: {{ (-1) * sumOfAmount() | currency:'EUR':true:'1.2-2' }}
         </div>
     </div>
 </div>

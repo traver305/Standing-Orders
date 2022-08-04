@@ -1,87 +1,45 @@
-* {
-    margin: 0%;
-    padding: 0%; 
+.container-fluid, .container-md{
+    background-color: #bab1f0;
+    color: #2f2570;
 }
 
-.container-header {
-    background-color: #bab1f0;
-    padding: 30px;
-    margin: 5px;
-    max-width: auto;
-    width: auto;
-    color: #2f2570;
+.container-fluid{
     text-align: left;
 }
 
-#title {
-    font-weight: bolder;
-    font-size: large;
-    padding-bottom: 15px;
+h1{
+    font-weight: bold;
 }
 
-.container-body {
-    margin-left: 5%;
-    margin-right: 5%;
+#table-row{
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.12);;
 }
 
-#body-header{
-    background-color: #bab1f0;
-    padding: 10px;
-}
-
-#body-header button {
-    float: right;
-}
-
-#table-container{
-    padding: 5px;
-    width: auto;
-    border: 1px solid gray;
-}
-
-table{
-    border: 1px solid gray;
-    width: 100%;
-}
-
-#body-footer{
-    background-color: #bab1f0;
-    padding: 10px;
-}
-
-#body-footer .col{
-    color: #2f2570;
-    font-size: medium;
+.mat-column-date{
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
     font-weight: bold;
     text-align: center;
 }
 
-.mat-column-date{
-    width: 15%;
-    border-right: 1px solid gray;
-    font-weight: bold;
-}
-
 .mat-column-amount{
-    width: 15%;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
     font-weight: bold;
 }
 
 .mat-column-info{
-    width: auto;
-    border-right: 1px solid gray;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .mat-column-info button{
     transform: scale(0.7);
 }
 
-.mat-column-info #info-root{
-    margin-left: 2%;
-    width: auto;
-}
-
-.mat-column-info #name{
+#footer, #name{
     font-weight: bold;
 }
 
@@ -93,12 +51,18 @@ table{
     color: #fff;
     font-size: small;
 }
-       
+
 .mat-row:nth-child(odd){
     background-color: #adadadae;
 }
 
+#hide {
+    visibility: hidden;
+}
 
+td:hover #hide{
+    visibility: visible;
+}
 
 
 

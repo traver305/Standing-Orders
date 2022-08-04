@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StandingOrderListComponent } from './standingOrders/standingOrder-list.component';
 import { MaterialModule } from './material/material.module';
-import { IbanFormatPipe } from './iban-format.pipe';
+import { IbanFormatPipe } from './pipes/iban-format.pipe';
 
 
 @NgModule({
