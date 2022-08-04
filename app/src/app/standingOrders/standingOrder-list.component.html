@@ -1,14 +1,3 @@
-<div class="container-fluid">
-    <div class="row">
-        <h1 class="m-2">Prehľad trvalých príkazov</h1>
-    </div>
-    <div class="row">
-        <p class="m-2">
-            Trvalé príkazy sú ideálne, keď potrebujete pravidelne posielať platby v rovnakej výške.
-            Tu ich môžete upravovať alebo vytvárať.
-        </p>
-    </div>
-</div>
 <div class="container-md mt-1">
     <div class="row">
         <div class="col-9">
@@ -17,16 +6,20 @@
             <button mat-raised-button color="primary" class="my-2">Nový trvalý príkaz</button>
         </div>
     </div>
-    <div class="row" id="table-row">
+    <div class="row table-row">
         <table mat-table [dataSource]="orders" class="mat-elevation-z0 py-1">
             <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef> Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.nextRealizationDate | date:'d MMM'}} </td>
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element" class="bold"> 
+                    <span> {{element.nextRealizationDate | date:'d MMM'}} </span>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
                 <th mat-header-cell *matHeaderCellDef> Amount </th>
-                <td mat-cell *matCellDef="let element"> {{ (-1) * element.amount  | currency:'EUR':true:'1.2-2' }} </td>
+                <td mat-cell *matCellDef="let element" class="center bold"> 
+                    <span>{{ (-1) * element.amount  | currency:'EUR':true:'1.2-2' }}</span>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="info">
@@ -35,23 +28,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-9">
-                                <div class="container">
-                                    <div class="row" id="name">
-                                        {{ element.name | uppercase }}
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <span id="interval">
-                                                {{ element.interval }}
-                                            </span>
-                                        </div>
-                                        <div class="col-9">
-                                            IBAN: {{ element.accountNumber | ibanFormat}}
-                                        </div>
-                                    </div>
-                                </div>
+                                <h2 class="m-0">{{ element.name | uppercase }}</h2>
+                                <span class="interval me-2">{{ element.interval }}</span>
+                                <span>IBAN: {{ element.accountNumber | ibanFormat}}</span>
                             </div>
-                            <div class="col-3" id="hide">
+                            <div class="col-3 hide">
                                 <button mat-raised-button color="primary">Upraviť</button>
                                 <button mat-raised-button color="primary">Zrušiť</button>
                             </div>
@@ -63,12 +44,12 @@
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
         </table>
     </div>
-    <div class="row" id="footer">
+    <div class="row">
         <div class="col my-3">
-            Počet trvalých príkazov: {{ orders.length }}
+            <h2 class="m-0 center">Počet trvalých príkazov: {{ orders.length }}</h2>  
         </div>
         <div class="col my-3">
-            Celková suma: {{ (-1) * sumOfAmount() | currency:'EUR':true:'1.2-2' }}
+            <h2 class="m-0 center">Celková suma: {{ (-1) * sumOfAmount() | currency:'EUR':true:'1.2-2' }}</h2>
         </div>
     </div>
 </div>

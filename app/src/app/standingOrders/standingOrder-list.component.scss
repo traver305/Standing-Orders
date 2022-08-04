@@ -1,49 +1,38 @@
-.container-fluid, .container-md{
-    background-color: #bab1f0;
-    color: #2f2570;
+$background-color: #bab1f0;
+$text-color: #2f2570;
+$border: 1px solid rgba(0, 0, 0, 0.12);
+
+.container-md{
+    background-color: $background-color;
+    color: $text-color;
 }
 
-.container-fluid{
-    text-align: left;
-}
-
-h1{
-    font-weight: bold;
-}
-
-#table-row{
+.table-row{
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.12);;
+    border: $border;
 }
 
 .mat-column-date{
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
-    border-left: 1px solid rgba(0, 0, 0, 0.12);
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    font-weight: bold;
-    text-align: center;
+    border-right: $border;
+    border-left: $border;;
+    border-top: $border;
 }
 
 .mat-column-amount{
-    border-right: 1px solid rgba(0, 0, 0, 0.12);;
-    border-left: 1px solid rgba(0, 0, 0, 0.12);;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    font-weight: bold;
+    border-right: $border;
+    border-left: $border;
+    border-top: $border;
 }
 
 .mat-column-info{
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: $border;
 }
 
 .mat-column-info button{
     transform: scale(0.7);
 }
 
-#footer, #name{
-    font-weight: bold;
-}
-
-#interval{
+.interval{
     background-color: #5b5775;
     border-radius: 5px;
     padding-left: 5px;
@@ -56,11 +45,11 @@ h1{
     background-color: #adadadae;
 }
 
-#hide {
+.hide {
     visibility: hidden;
 }
 
-td:hover #hide{
+td:hover .hide{
     visibility: visible;
 }
 
