@@ -5,14 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { StandingOrderListComponent } from './standingOrders/standingOrder-list.component';
+import { MaterialModule } from './material/material.module';
+import { IbanFormatPipe } from './pipes/iban-format.pipe';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StandingOrderListComponent,
+    IbanFormatPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
