@@ -10,7 +10,7 @@
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Suma</mat-label>
-            <input matInput formControlName='amount'>
+            <input matInput formControlName='amount' type="number">
             <mat-icon matSuffix>euro</mat-icon>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
@@ -25,6 +25,7 @@
             <mat-label>Špecifický symbol</mat-label>
             <input matInput formControlName='specificSymbol'>
         </mat-form-field>
+        <!-- <interval formControlName=""></interval> -->
         <mat-form-field [appearance]="appereance" class="px-1" >
             <mat-label>Poznámka pre príjemcu</mat-label>
             <textarea matInput formControlName='note'></textarea>
