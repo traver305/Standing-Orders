@@ -27,7 +27,8 @@ export class StandingOrderFormComponent {
         constSymbol: new FormControl(''),
         specificSymbol: new FormControl(''),
         note: new FormControl(''),
-        date: new FormControl('')
+        date: new FormControl(''),
+        period: new FormControl('')
 
     });
 

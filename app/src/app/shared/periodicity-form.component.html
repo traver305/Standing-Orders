@@ -1,0 +1,17 @@
+<form [formGroup]="periodicity">
+    <mat-form-field appearance="fill" class="px-1">
+        <mat-label>Periodicita</mat-label>
+        <mat-select formControlName="period" (selectionChange)="changePeriodicity()">
+            <mat-option *ngFor="let interval of intervals" [value]="interval.value">
+                {{interval.text}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="px-1">
+        <mat-select formControlName="specific" [disabled]="disableSpec">
+            <mat-option *ngFor="let option of intervalSpecification" [value]="option">
+                {{ option }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

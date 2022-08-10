@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StandingOrderListComponent } from './standingOrders/standingOrder-list.component';
 import { IbanFormatPipe } from './pipes/iban-format.pipe';
 import { StandingOrderFormComponent } from './standingOrders/standing-order-form/standing-order-form.component';
+import { PeriodicityFormComponent } from './shared/periodicity-form.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { StandingOrderFormComponent } from './standingOrders/standing-order-form
     AppComponent,
     StandingOrderListComponent,
     IbanFormatPipe,
-    StandingOrderFormComponent
+    StandingOrderFormComponent,
+    PeriodicityFormComponent
   ],
   imports: [
     BrowserModule,
