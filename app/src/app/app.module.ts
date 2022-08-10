@@ -7,15 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { MaterialModule } from './material/material.module';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { StandingOrderListComponent } from './standingOrders/standingOrder-list.component';
 import { IbanFormatPipe } from './pipes/iban-format.pipe';
 import { StandingOrderFormComponent } from './standingOrders/standing-order-form/standing-order-form.component';
-import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -30,10 +26,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     ReactiveFormsModule
   ],
   providers: [],
