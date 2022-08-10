@@ -1,6 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validator } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { tap } from "rxjs";
+
+export interface ValueTextType {
+    value: string,
+    text: string
+}
+
+const intervalDaily = '1';
+const intervalWeekly = '2';
+const intervalMonthly = '3';
 
 @Component({
     selector: 'periodicity-form',
@@ -14,79 +23,67 @@ import { Subscription } from "rxjs";
         }
     ]
 })
+export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
-
-export class PeriodicityFormComponent implements ControlValueAccessor{
-
-    intervals: any[] = [
+    intervals: ValueTextType[] = [
         {
-            "value": 1,
+            "value": '1',
             "text": "Denne"
         },
         {
-            "value": 2,
+            "value": '2',
             "text": "Týždenne"
         },
         {
-            "value": 3,
+            "value": '3',
             "text": "Mesačne"
         }
     ];
 
-    intervalSpecification: any[]= [];
-
-    disableSpec = true;
+    intervalSpecification: ValueTextType[]= [];
 
     constructor(private fb: FormBuilder){}
 
-    periodicity: FormGroup = this.fb.group({
-        period: new FormControl<number|null>(null),
-        specific: new FormControl('')
+    periodicity = this.fb.group({
+        period: [''],
+        specific: [{value: '', disabled: true}]         
     })
 
     loadDays(){
         this.intervalSpecification = [
-            'Pondelok',
-            'Utorok',
-            'Streda',
-            'Štvrtok',
-            'Piatok',
-            'Sobota',
-            'Nedeľa'
+            {value: '1', text: 'Pondelok'},
+            {value: '2', text: 'Utorok'},
+            {value: '3', text: 'Streda'},
+            {value: '4', text: 'Štvrtok'},
+            {value: '5', text: 'Piatok'},
+            {value: '6', text: 'Sobota'},
+            {value: '7', text: 'Nedeľa'},
         ]
     }
 
     loadNumbers(){
-        this.intervalSpecification = Array.from({length: 31}, (_, i) => i + 1);
+        this.intervalSpecification = Array.from({length: 31}, (_, i) => {
+            return {
+                value: `${i+1}`,
+                text: `${i+1}`
+            };
+        });
     }
-
+    
     changePeriodicity(){
-        if(this.periodicity.value.period === 1){
-            console.log('je to 1111111111111111');
-            this.disableSpec = true;
+        if(this.periodicity.value.period === intervalDaily){
+            this.periodicity.controls.specific.disable();
+            this.periodicity.controls.specific.reset();
         }
-        if(this.periodicity.value.period === 2){
-            console.log('je to 222222222222222222222');
-            this.disableSpec = false;
+        if(this.periodicity.value.period === intervalWeekly){
+            this.periodicity.controls.specific.enable();
             this.loadDays();
         }
-        if(this.periodicity.value.period === 3){
-            console.log('je to 3333333333333333');
-            this.disableSpec = false;
+        if(this.periodicity.value.period === intervalMonthly){
+            this.periodicity.controls.specific.enable();
             this.loadNumbers();
         }
     }
-
-    // writeValue(value: any): void {
-    //     if (value){
-    //         this.periodicity.setValue(value, {emitEvent: false})
-    //     }
-    // }
-
-    // registerOnChange(onChange: any): void {
-    //     const sub = this.periodicity.valueChanges.subscribe(onChange);
-    //     this.o
-    // }
 
     writeValue(obj: any): void {
         if (obj) {
@@ -95,15 +92,19 @@ export class PeriodicityFormComponent implements ControlValueAccessor{
     }
 
     onTouched: Function = () => {};
-
-    onChangeSubs: Subscription[] = [];
+    onChange = (val: any) => {};
 
     registerOnTouched(onTouched: Function) {
         this.onTouched = onTouched;
     }
 
     registerOnChange(onChange: any) {
-        const sub = this.periodicity.valueChanges.subscribe(onChange);
-        this.onChangeSubs.push(sub);
+        this.onChange = onChange;
+    }
+
+    ngOnInit(): void {
+        this.periodicity.valueChanges.pipe(
+            tap((val) => this.onChange(val)),
+        ).subscribe();
     }
 }

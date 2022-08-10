@@ -8,9 +8,9 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill" class="px-1">
-        <mat-select formControlName="specific" [disabled]="disableSpec">
-            <mat-option *ngFor="let option of intervalSpecification" [value]="option">
-                {{ option }}
+        <mat-select formControlName="specific">
+            <mat-option *ngFor="let option of intervalSpecification" [value]="option.value">
+                {{ option.text }}
             </mat-option>
         </mat-select>
     </mat-form-field>
