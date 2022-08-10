@@ -9,18 +9,20 @@ import { Router } from '@angular/router';
 })
 export class StandingOrderFormComponent {
 
+    appereance ='fill';
+
     constructor(private router: Router) {
     }
 
     standingOrderForm = new FormGroup({
         name: new FormControl(''),
         iban: new FormControl(''),
-        amount: new FormControl(''),
+        amount: new FormControl(0),
         variableSybmol: new FormControl(''),
         constSymbol: new FormControl(''),
         specificSymbol: new FormControl(''),
-        note: new FormControl('')
-        // TODO
+        note: new FormControl(''),
+        date: new FormControl('')
 
     });
 

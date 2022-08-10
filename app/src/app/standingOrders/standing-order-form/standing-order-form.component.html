@@ -25,13 +25,13 @@
             <mat-label>Špecifický symbol</mat-label>
             <input matInput formControlName='specificSymbol'>
         </mat-form-field>
-        <mat-form-field appearance="fill" class="px-1">
+        <mat-form-field appearance="fill" class="px-1" >
             <mat-label>Poznámka pre príjemcu</mat-label>
             <textarea matInput formControlName='note'></textarea>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Začiatok účinnosti</mat-label>
-            <input matInput [matDatepicker]="picker">
+            <input matInput [matDatepicker]="picker" formControlName='date'>
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
