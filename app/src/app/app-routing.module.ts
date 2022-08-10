@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { StandingOrderFormComponent } from './standingOrders/standing-order-form/standing-order-form.component';
+import { StandingOrderListComponent } from './standingOrders/standingOrder-list.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+    { path: 'standingOrders', component: StandingOrderListComponent },
+    { path: 'form', component: StandingOrderFormComponent },
+    { path: '', redirectTo: '/standingOrders', pathMatch: 'full' },
+    { path: '**', redirectTo: '/standingOrders', pathMatch: 'full' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

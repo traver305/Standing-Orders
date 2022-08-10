@@ -1,0 +1,19 @@
+$background-color: #bab1f08c;
+$text-color: #2f2570;
+
+.container-sm{
+    background-color: $background-color;
+    color: $text-color;
+    // flex-direction: column;
+}
+
+mat-form-field{
+    width: 100%;
+    color: $text-color;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

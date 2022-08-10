@@ -1,0 +1,45 @@
+<div class="container-sm mt-1 p-4">
+    <form class="example-form" [formGroup]='standingOrderForm'>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>Príjemca</mat-label>
+            <input matInput placeholder="Meno Priezvisko" formControlName='name'>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>IBAN</mat-label>
+            <input matInput formControlName='iban'>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>Suma</mat-label>
+            <input matInput formControlName='amount' type="number">
+            <mat-icon matSuffix>euro</mat-icon>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>Variabilný symbol</mat-label>
+            <input matInput formControlName='variableSybmol'>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>Konštantný symbol</mat-label>
+            <input matInput formControlName='constSymbol'>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance" class="px-1">
+            <mat-label>Špecifický symbol</mat-label>
+            <input matInput formControlName='specificSymbol'>
+        </mat-form-field>
+        <!-- <interval formControlName=""></interval> -->
+        <mat-form-field [appearance]="appereance" class="px-1" >
+            <mat-label>Poznámka pre príjemcu</mat-label>
+            <textarea matInput formControlName='note'></textarea>
+        </mat-form-field>
+        <mat-form-field [appearance]="appereance">
+            <mat-label>Začiatok účinnosti</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName='date'>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </form>
+    <div class="buttons mt-2">
+        <button mat-raised-button color="primary" class="mx-2" (click)="printForm()">Uložiť</button>
+        <button mat-raised-button color="primary" class="mx-2" (click)="goToParentPage()">Zahodiť</button>
+    </div>
+</div>
