@@ -45,8 +45,8 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     constructor(private fb: FormBuilder){}
 
     periodicity = this.fb.group({
-        period: this.fb.control<number | null>(null),
-        specific: this.fb.control({value: '', disabled: true}, {nonNullable: true})
+        intervalId: this.fb.control<number | null>(null),
+        intervalSpecification: this.fb.control({value: '', disabled: true}, {nonNullable: true})
         // [{value: '', disabled: true}]         
     })
 
@@ -72,16 +72,16 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     }
     
     changePeriodicity(){
-        if(this.periodicity.value.period === intervalDaily){
-            this.periodicity.controls.specific.disable();
-            this.periodicity.controls.specific.reset();
+        if(this.periodicity.value.intervalId === intervalDaily){
+            this.periodicity.controls.intervalSpecification.disable();
+            this.periodicity.controls.intervalSpecification.reset();
         }
-        if(this.periodicity.value.period === intervalWeekly){
-            this.periodicity.controls.specific.enable();
+        if(this.periodicity.value.intervalId === intervalWeekly){
+            this.periodicity.controls.intervalSpecification.enable();
             this.loadDays();
         }
-        if(this.periodicity.value.period === intervalMonthly){
-            this.periodicity.controls.specific.enable();
+        if(this.periodicity.value.intervalId === intervalMonthly){
+            this.periodicity.controls.intervalSpecification.enable();
             this.loadNumbers();
         }
     }

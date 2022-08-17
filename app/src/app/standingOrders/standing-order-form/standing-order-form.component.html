@@ -3,10 +3,11 @@
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Príjemca</mat-label>
             <input matInput placeholder="Meno Priezvisko" formControlName='name'>
+            <mat-error *ngIf="name && name.invalid"> You must enter a value </mat-error>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>IBAN</mat-label>
-            <input matInput formControlName='iban'>
+            <input matInput formControlName='accountNumber'>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Suma</mat-label>
@@ -15,11 +16,11 @@
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Variabilný symbol</mat-label>
-            <input matInput formControlName='variableSybmol'>
+            <input matInput formControlName='variableSymbol'>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Konštantný symbol</mat-label>
-            <input matInput formControlName='constSymbol'>
+            <input matInput formControlName='constantSymbol'>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Špecifický symbol</mat-label>
@@ -32,7 +33,7 @@
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Začiatok účinnosti</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName='date'>
+            <input matInput [matDatepicker]="picker" formControlName='validFrom'>
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>

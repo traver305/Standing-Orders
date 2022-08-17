@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { IStandingOrder } from "../standingOrder";
-import { StandingOrderService } from "src/app/services/standing-order.service";
+import { IStandingOrder } from "../standing-order";
+import { StandingOrderService } from "../standing-order.service";
 
 @Component({
     selector: 'pm-standingOrders',
