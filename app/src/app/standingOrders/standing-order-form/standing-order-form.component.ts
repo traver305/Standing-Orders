@@ -7,12 +7,17 @@ import { StandingOrderService } from '../standing-order.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { IStandingOrderForm } from '../standing-order-form';
 
+
+const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
+
 @Component({
   selector: 'pm-standing-order-form',
   templateUrl: './standing-order-form.component.html',
   styleUrls: ['./standing-order-form.component.scss']
 })
 export class StandingOrderFormComponent implements OnInit{
+
+    
 
     appereance: MatFormFieldAppearance ='fill';
 
@@ -24,24 +29,33 @@ export class StandingOrderFormComponent implements OnInit{
         
     }
 
-
     standingOrderForm = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        accountNumber: new FormControl(''),
-        amount: new FormControl<number | null>(null),
+        name: new FormControl(''),
+        accountNumber: new FormControl('', {
+            nonNullable: true,
+            validators: [Validators.pattern(IBAN_REGEX), Validators.required]
+        }),
+        amount: new FormControl<number | null>(null, {
+            nonNullable: true,
+            validators: Validators.required
+        }),
         variableSymbol: new FormControl(''),
         constantSymbol: new FormControl(''),
         specificSymbol: new FormControl(''),
         note: new FormControl(''),
-        validFrom: new FormControl(''),
+        validFrom: new FormControl('', {
+            nonNullable: true,
+            validators: Validators.required
+        }),
         period: new FormControl()
     });
 
     printForm(): void {
         console.log(this.standingOrderForm.value);
         this.standingOrderForm.markAllAsTouched();
-
-        this.goToParentPage();
+        if (this.standingOrderForm.valid){
+            this.goToParentPage();
+        }        
     }
 
     goToParentPage():void {
@@ -75,7 +89,12 @@ export class StandingOrderFormComponent implements OnInit{
         this._snackBar.open(message, 'Undo');
     }
 
-    get name(){
-        return this.standingOrderForm.get('name');
+    getMinDate(): Date{
+        let today = new Date();
+        return new Date(today.setDate(today.getDate() + 1));
+    }
+
+    get controls(){
+        return this.standingOrderForm.controls;
     }
 }

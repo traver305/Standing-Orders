@@ -3,16 +3,18 @@
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Príjemca</mat-label>
             <input matInput placeholder="Meno Priezvisko" formControlName='name'>
-            <mat-error *ngIf="name && name.invalid"> You must enter a value </mat-error>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>IBAN</mat-label>
             <input matInput formControlName='accountNumber'>
+            <mat-error *ngIf="controls.accountNumber.hasError('required')">IBAN musí byť zadaný</mat-error>
+            <mat-error *ngIf="controls.accountNumber.hasError('pattern')">IBAN musí byť vo formáte: XX0000000000000000000000</mat-error>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Suma</mat-label>
             <input matInput formControlName='amount' type="number">
             <mat-icon matSuffix>euro</mat-icon>
+            <mat-error *ngIf="controls.amount.hasError('required')">Suma je potrebná</mat-error>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Variabilný symbol</mat-label>
@@ -33,8 +35,9 @@
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Začiatok účinnosti</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName='validFrom'>
+            <input matInput [matDatepicker]="picker" [min]="getMinDate()" formControlName="validFrom">
             <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-error *ngIf="controls.validFrom.hasError('required')">Dátum musí byť zadaný</mat-error>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
