@@ -6,7 +6,7 @@ export interface IStandingOrderForm{
     constantSymbol? : string;
     specificSymbol? : string;
     note? : string
-    validFrom? : string;
+    validFrom? : Date | null;
     intervalId? : number | null;
     intervalSpecification? : number | null;
 }
