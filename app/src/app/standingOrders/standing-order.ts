@@ -1,6 +1,6 @@
 export interface IStandingOrder{
-    standingOrderId?: number | null;
-    amount?: number | null;
+    standingOrderId: number;
+    amount: number;
     name?: string;
     accountNumber?: string;
     interval?: string;

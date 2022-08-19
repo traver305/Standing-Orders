@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { catchError, Observable, tap } from "rxjs";
+import { catchError, finalize, Observable, tap } from "rxjs";
 import { IStandingOrder } from "../standing-order";
 import { StandingOrderService } from "../standing-order.service";
 
@@ -20,12 +20,22 @@ export class StandingOrderListComponent implements OnInit{
 
     columnsToDisplay = ['date', 'info', 'amount'];
 
-    ngOnInit(): void {
+    deleteStandingOrder(id: number){
+        this.standingOrderService.deleteStandingOrder(id).pipe(
+            tap(() => this.loadStandingOrders())
+        ).subscribe();
+    }
+
+    loadStandingOrders(){
         this.standingOrderService.getStandingOrders().pipe(
             tap(data => {
                 this.orders = data;
-                this.totalSum = this.orders.reduce((acc, curr) => acc + curr.amount! , 0)
+                this.totalSum = this.orders.reduce((acc, curr) => acc + curr.amount , 0);
             })
         ).subscribe();
+    }
+
+    ngOnInit(): void {
+        this.loadStandingOrders();
     }
 }
