@@ -3,13 +3,13 @@ import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from "@angular/f
 import { tap } from "rxjs";
 
 export interface ValueTextType {
-    value: string,
+    value: number,
     text: string
 }
 
-const intervalDaily = '1';
-const intervalWeekly = '2';
-const intervalMonthly = '3';
+const intervalDaily = 1;
+const intervalWeekly = 2;
+const intervalMonthly = 3;
 
 @Component({
     selector: 'periodicity-form',
@@ -27,15 +27,15 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     intervals: ValueTextType[] = [
         {
-            "value": '1',
+            "value": 1,
             "text": "Denne"
         },
         {
-            "value": '2',
+            "value": 2,
             "text": "Týždenne"
         },
         {
-            "value": '3',
+            "value": 3,
             "text": "Mesačne"
         }
     ];
@@ -45,50 +45,54 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     constructor(private fb: FormBuilder){}
 
     periodicity = this.fb.group({
-        period: [''],
-        specific: [{value: '', disabled: true}]         
+        intervalId: this.fb.control<number | null>(null),
+        intervalSpecification: this.fb.control({value: '', disabled: true}, {nonNullable: true})
+        // [{value: '', disabled: true}]         
     })
 
     loadDays(){
         this.intervalSpecification = [
-            {value: '1', text: 'Pondelok'},
-            {value: '2', text: 'Utorok'},
-            {value: '3', text: 'Streda'},
-            {value: '4', text: 'Štvrtok'},
-            {value: '5', text: 'Piatok'},
-            {value: '6', text: 'Sobota'},
-            {value: '7', text: 'Nedeľa'},
+            {value: 1, text: 'Pondelok'},
+            {value: 2, text: 'Utorok'},
+            {value: 3, text: 'Streda'},
+            {value: 4, text: 'Štvrtok'},
+            {value: 5, text: 'Piatok'},
+            {value: 6, text: 'Sobota'},
+            {value: 7, text: 'Nedeľa'},
         ]
     }
 
     loadNumbers(){
         this.intervalSpecification = Array.from({length: 31}, (_, i) => {
             return {
-                value: `${i+1}`,
+                value: i+1,
                 text: `${i+1}`
             };
         });
     }
     
     changePeriodicity(){
-        if(this.periodicity.value.period === intervalDaily){
-            this.periodicity.controls.specific.disable();
-            this.periodicity.controls.specific.reset();
+        if(this.periodicity.value.intervalId === intervalDaily){
+            this.periodicity.controls.intervalSpecification.disable();
+            this.periodicity.controls.intervalSpecification.reset();
         }
-        if(this.periodicity.value.period === intervalWeekly){
-            this.periodicity.controls.specific.enable();
+        if(this.periodicity.value.intervalId === intervalWeekly){
+            this.periodicity.controls.intervalSpecification.enable();
             this.loadDays();
         }
-        if(this.periodicity.value.period === intervalMonthly){
-            this.periodicity.controls.specific.enable();
+        if(this.periodicity.value.intervalId === intervalMonthly){
+            this.periodicity.controls.intervalSpecification.enable();
             this.loadNumbers();
         }
     }
 
     writeValue(obj: any): void {
+        console.log('periodicity value', obj);
         if (obj) {
             this.periodicity.setValue(obj, {emitEvent: false});
+            this.changePeriodicity();
         }
+        
     }
 
     onTouched: Function = () => {};

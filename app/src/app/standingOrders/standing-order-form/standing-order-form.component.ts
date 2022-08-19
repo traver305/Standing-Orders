@@ -1,39 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
+import { StandingOrderService } from '../standing-order.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { IStandingOrderForm } from '../standing-order-form';
 
 @Component({
   selector: 'pm-standing-order-form',
   templateUrl: './standing-order-form.component.html',
   styleUrls: ['./standing-order-form.component.scss']
 })
-export class StandingOrderFormComponent {
+export class StandingOrderFormComponent implements OnInit{
 
     appereance: MatFormFieldAppearance ='fill';
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-        // route.params.pipe(
-        //     tap(params => console.log('activated params', params))
-        // ).subscribe();
+    constructor(
+        private router: Router, 
+        private route: ActivatedRoute, 
+        private standingOrderService: StandingOrderService,
+        private _snackBar: MatSnackBar) {
+        
     }
 
+
     standingOrderForm = new FormGroup({
-        name: new FormControl(''),
-        iban: new FormControl(''),
+        name: new FormControl('', [Validators.required]),
+        accountNumber: new FormControl(''),
         amount: new FormControl<number | null>(null),
-        variableSybmol: new FormControl(''),
-        constSymbol: new FormControl(''),
+        variableSymbol: new FormControl(''),
+        constantSymbol: new FormControl(''),
         specificSymbol: new FormControl(''),
         note: new FormControl(''),
-        date: new FormControl(''),
-        period: new FormControl('')
-
+        validFrom: new FormControl(''),
+        period: new FormControl()
     });
 
     printForm(): void {
         console.log(this.standingOrderForm.value);
+        this.standingOrderForm.markAllAsTouched();
+
         this.goToParentPage();
     }
 
@@ -41,4 +48,34 @@ export class StandingOrderFormComponent {
         this.router.navigateByUrl('/standingOrders');
     }
 
+    ngOnInit(): void {
+        console.log(this.route.snapshot.paramMap.get('id'));
+        if (this.route.snapshot.paramMap.get('id') != null ){
+            let id = Number(this.route.snapshot.paramMap.get('id'));
+            this.standingOrderService.getStandingOrder(id).pipe(
+                tap(data => {
+                    this.patchValue(data);
+                }),
+                catchError(    
+                    error => {
+                        this.openSnackBar(error.message);
+                        return of('');
+                })
+            ).subscribe()
+        }
+    }
+
+    patchValue(data: IStandingOrderForm){
+        const {intervalId, intervalSpecification, ...rest } = data;
+        const standingOrder = { ...rest, period: { intervalId, intervalSpecification } }
+        this.standingOrderForm.patchValue(standingOrder);
+    }
+
+    openSnackBar(message: string) {
+        this._snackBar.open(message, 'Undo');
+    }
+
+    get name(){
+        return this.standingOrderForm.get('name');
+    }
 }
