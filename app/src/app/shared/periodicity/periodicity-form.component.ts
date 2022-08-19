@@ -11,6 +11,11 @@ const intervalDaily = 1;
 const intervalWeekly = 2;
 const intervalMonthly = 3;
 
+export interface IPeriodicityForm {
+    intervalId? : number | null,
+    intervalSpecification? : number | null
+}
+
 @Component({
     selector: 'periodicity-form',
     templateUrl: './periodicity-form.component.html',

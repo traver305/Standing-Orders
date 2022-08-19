@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { catchError, Observable, tap } from "rxjs";
 import { IStandingOrder } from "../standing-order";
 import { StandingOrderService } from "../standing-order.service";
 
@@ -14,21 +14,18 @@ export class StandingOrderListComponent implements OnInit{
 
     constructor(private standingOrderService: StandingOrderService){}
 
-    orders!: any;
+    orders: IStandingOrder[] = [];
+
+    totalSum = 0;
 
     columnsToDisplay = ['date', 'info', 'amount'];
 
-    sumOfAmount(): number {
-      let sum = 0;
-      for (let i = 0; i < this.orders.length; i++){
-        sum += this.orders[i].amount;
-      }
-      return sum;
-    }
-
     ngOnInit(): void {
-        this.standingOrderService.getStandingOrders().subscribe(data => {
-            this.orders = data;
-        })
+        this.standingOrderService.getStandingOrders().pipe(
+            tap(data => {
+                this.orders = data;
+                this.totalSum = this.orders.reduce((acc, curr) => acc + curr.amount! , 0)
+            })
+        ).subscribe();
     }
 }
