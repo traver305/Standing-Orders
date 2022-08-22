@@ -120,20 +120,14 @@ export class StandingOrderFormComponent implements OnInit{
     }
 
     getValues(): IStandingOrderForm {
-        const {period, validFrom, ...rest} = this.standingOrderForm.value;
-
+        const {period, validFrom, ...rest} = this.standingOrderForm.getRawValue();
         let utc_date = validFrom;
-        // utc_date?.setHours((validFrom?.getHours() ?? 0) + 2)
-        utc_date?.setHours(new Date().getUTCHours());
-
+        if (validFrom){
+            utc_date = new Date(Date.UTC(validFrom.getFullYear(), validFrom.getMonth(), validFrom.getDate()));;
+        }
         const intervalId = period?.intervalId;
-        let intervalSpecification;
-        if (intervalId === 1){
-            intervalSpecification = 0;
-        }
-        else{
-            intervalSpecification = period?.intervalSpecification;
-        }
+        const intervalSpecification = period?.intervalSpecification;
+        
         const standingOrder = { ...rest, validFrom: utc_date, intervalId, intervalSpecification };
         return standingOrder;
     }

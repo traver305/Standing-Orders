@@ -51,8 +51,7 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     periodicity = this.fb.group({
         intervalId: this.fb.control<number | null>(null),
-        intervalSpecification: this.fb.control({value: '', disabled: true}, {nonNullable: true})
-        // [{value: '', disabled: true}]         
+        intervalSpecification: this.fb.control<number | null>({value: 0, disabled: true}, {nonNullable: true})   
     })
 
     loadDays(){
@@ -78,7 +77,9 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     
     changePeriodicity(){
         if(this.periodicity.value.intervalId === intervalDaily){
+            // this.periodicity.controls.intervalSpecification.setValue(0);
             this.periodicity.controls.intervalSpecification.disable();
+            // this.periodicity.controls.intervalSpecification
             this.periodicity.controls.intervalSpecification.reset();
         }
         if(this.periodicity.value.intervalId === intervalWeekly){
@@ -113,7 +114,7 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     ngOnInit(): void {
         this.periodicity.valueChanges.pipe(
-            tap((val) => this.onChange(val)),
+            tap((val) => this.onChange(this.periodicity.getRawValue())),
         ).subscribe();
     }
 }
