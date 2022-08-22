@@ -147,7 +147,11 @@ export class StandingOrderFormComponent implements OnInit{
     openPopUp(){
         const popup = this.matDialog.open(ModalpopupComponent);
         popup.afterClosed().pipe(
-            tap(data => this.standingOrderForm.controls.constantSymbol.setValue(data))
+            tap(data => {
+                if(data){
+                    this.standingOrderForm.controls.constantSymbol.setValue(data);
+                }
+            })
         ).subscribe();
     }
 
