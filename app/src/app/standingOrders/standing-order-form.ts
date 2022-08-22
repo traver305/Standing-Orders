@@ -1,4 +1,5 @@
 export interface IStandingOrderForm{
+    standingOrderId? : number | null,
     name? : string; 
     accountNumber? : string;
     amount? : number | null;

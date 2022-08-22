@@ -34,13 +34,12 @@
                             </div>
                             <div class="col-3 hide">
                                 <a mat-raised-button color="primary" [routerLink]="['/form', element.standingOrderId]">Upraviť</a>
-                                <a mat-raised-button color="primary">Zrušiť</a>
+                                <button mat-raised-button color="primary" (click)="deleteStandingOrder(element.standingOrderId)">Zrušiť</button>
                             </div>
                         </div>
                     </div>
                 </td>
             </ng-container>
-            <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr> -->
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
         </table>
     </div>

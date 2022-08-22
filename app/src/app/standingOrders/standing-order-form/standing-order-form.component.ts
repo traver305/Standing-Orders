@@ -18,7 +18,6 @@ const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
 })
 export class StandingOrderFormComponent implements OnInit{
 
-    edit: boolean = false;
 
     actualDate: Date = new Date();
 
@@ -33,7 +32,12 @@ export class StandingOrderFormComponent implements OnInit{
     }
 
     standingOrderForm = new FormGroup({
-        name: new FormControl(''),
+        standingOrderId: new FormControl<number | null>(null, {
+            nonNullable: true
+        }),
+        name: new FormControl('', {
+            nonNullable: true
+        }),
         accountNumber: new FormControl('', {
             nonNullable: true,
             validators: [Validators.pattern(IBAN_REGEX), Validators.required]
@@ -42,11 +46,19 @@ export class StandingOrderFormComponent implements OnInit{
             nonNullable: true,
             validators: Validators.required
         }),
-        variableSymbol: new FormControl(''),
-        constantSymbol: new FormControl(''),
-        specificSymbol: new FormControl(''),
-        note: new FormControl(''),
-        validFrom: new FormControl({}, {
+        variableSymbol: new FormControl('', {
+            nonNullable: true
+        }),
+        constantSymbol: new FormControl('', {
+            nonNullable: true
+        }),
+        specificSymbol: new FormControl('', {
+            nonNullable: true
+        }),
+        note: new FormControl('', {
+            nonNullable: true
+        }),
+        validFrom: new FormControl<Date | null>(null, {
             nonNullable: true,
             validators: Validators.required
         }),
@@ -54,10 +66,24 @@ export class StandingOrderFormComponent implements OnInit{
     });
 
     saveForm(): void {
-        console.log(this.standingOrderForm.value);
-        // this.saveValue();
         this.standingOrderForm.markAllAsTouched();
         if (this.standingOrderForm.valid){
+            if(!this.standingOrderForm.controls.standingOrderId.value){
+                this.standingOrderService.postStandingOrder(this.getValues()).pipe(
+                    catchError(err => {
+                        console.log(err.message);
+                        return of();
+                    })
+                ).subscribe();
+            }
+            else{
+                this.standingOrderService.putStandingOrder(this.getValues(), this.standingOrderForm.controls.standingOrderId.value).pipe(
+                    catchError(err => {
+                        console.log(err.message);
+                        return of();
+                    })
+                ).subscribe();
+            }
             this.goToParentPage();
         }        
     }
@@ -67,7 +93,6 @@ export class StandingOrderFormComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        console.log(this.route.snapshot.paramMap.get('id'));
 
         this.actualDate = this.getMinDate();
 
@@ -76,7 +101,6 @@ export class StandingOrderFormComponent implements OnInit{
             this.standingOrderService.getStandingOrder(id).pipe(
                 tap(data => {
                     this.patchValue(data);
-                    this.edit = true;
                 }),
                 catchError(    
                     error => {
@@ -95,20 +119,18 @@ export class StandingOrderFormComponent implements OnInit{
         this.standingOrderForm.patchValue(standingOrder);
     }
 
-    // saveValue(){
-    //     const {period, ...rest} = this.standingOrderForm.value;
-    //     console.log('Saving...')
-    //     const intervalId = period?.intervalId;
-    //     let intervalSpecification;
-    //     if (intervalId === 1){
-    //         intervalSpecification = 0;
-    //     }
-    //     else{
-    //         intervalSpecification = period?.intervalSpecification;
-    //     }
-    //     const standingOrder = { ...rest, intervalId, intervalSpecification }
-    //     console.log(standingOrder);
-    // }
+    getValues(): IStandingOrderForm {
+        const {period, validFrom, ...rest} = this.standingOrderForm.getRawValue();
+        let utc_date = validFrom;
+        if (validFrom){
+            utc_date = new Date(Date.UTC(validFrom.getFullYear(), validFrom.getMonth(), validFrom.getDate()));;
+        }
+        const intervalId = period?.intervalId;
+        const intervalSpecification = period?.intervalSpecification;
+        
+        const standingOrder = { ...rest, validFrom: utc_date, intervalId, intervalSpecification };
+        return standingOrder;
+    }
 
     openSnackBar(message: string) {
         this._snackBar.open(message, 'Undo');
