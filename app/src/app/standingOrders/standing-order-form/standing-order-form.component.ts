@@ -7,6 +7,8 @@ import { StandingOrderService } from '../standing-order.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { IStandingOrderForm } from '../standing-order-form';
 import { IPeriodicityForm } from 'src/app/shared/periodicity/periodicity-form.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalpopupComponent } from 'src/app/shared/modalpopup/modalpopup.component';
 
 
 const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
@@ -27,7 +29,8 @@ export class StandingOrderFormComponent implements OnInit{
         private router: Router, 
         private route: ActivatedRoute, 
         private standingOrderService: StandingOrderService,
-        private _snackBar: MatSnackBar) {
+        private _snackBar: MatSnackBar,
+        private matDialog: MatDialog) {
         
     }
 
@@ -139,6 +142,13 @@ export class StandingOrderFormComponent implements OnInit{
     getMinDate(): Date{
         let today = new Date();
         return new Date(today.setDate(today.getDate() + 1));
+    }
+
+    openPopUp(){
+        const popup = this.matDialog.open(ModalpopupComponent);
+        popup.afterClosed().pipe(
+            tap(data => this.standingOrderForm.controls.constantSymbol.setValue(data))
+        ).subscribe();
     }
 
     get controls(){

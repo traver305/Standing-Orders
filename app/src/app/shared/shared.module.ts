@@ -4,10 +4,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { MaterialModule } from "./material/material.module";
 import { PeriodicityFormComponent } from "./periodicity/periodicity-form.component";
+import { ModalpopupComponent } from './modalpopup/modalpopup.component';
 
 @NgModule({
     declarations: [
-        PeriodicityFormComponent
+        PeriodicityFormComponent,
+        ModalpopupComponent
     ],
     imports: [
         MaterialModule,
@@ -15,7 +17,8 @@ import { PeriodicityFormComponent } from "./periodicity/periodicity-form.compone
         CommonModule
     ],
     exports: [
-        PeriodicityFormComponent
+        PeriodicityFormComponent,
+        ModalpopupComponent
     ]
 })
 export class SharedModule{}
