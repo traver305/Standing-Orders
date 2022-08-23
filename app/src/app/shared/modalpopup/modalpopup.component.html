@@ -15,7 +15,7 @@
             </td>
         </ng-container>
         <tr mat-row 
-            (dblclick)="chooseConst(row)"
+            (click)="chooseConst(row)"
             *matRowDef="let row; columns: columnsToDisplay;">
         </tr>
     </table>

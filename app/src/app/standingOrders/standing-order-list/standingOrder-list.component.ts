@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { catchError, finalize, Observable, tap } from "rxjs";
+import { catchError, finalize, mergeMap, Observable, takeWhile, tap } from "rxjs";
+import { AuthorizationService } from "src/app/shared/authorization/authorization.service";
 import { IStandingOrder } from "../standing-order";
 import { StandingOrderService } from "../standing-order.service";
 
@@ -12,7 +13,9 @@ import { StandingOrderService } from "../standing-order.service";
 
 export class StandingOrderListComponent implements OnInit{
 
-    constructor(private standingOrderService: StandingOrderService){}
+    constructor(
+        private standingOrderService: StandingOrderService,
+        private authorizationService: AuthorizationService){}
 
     orders: IStandingOrder[] = [];
 
@@ -21,7 +24,12 @@ export class StandingOrderListComponent implements OnInit{
     columnsToDisplay = ['date', 'info', 'amount'];
 
     deleteStandingOrder(id: number){
-        this.standingOrderService.deleteStandingOrder(id).pipe(
+        this.authorizationService.authorization().pipe(
+            takeWhile(token => !!token),
+            tap(token => console.log(token)),
+            mergeMap(() => {
+                return this.standingOrderService.deleteStandingOrder(id);
+            }),
             tap(() => this.loadStandingOrders())
         ).subscribe();
     }

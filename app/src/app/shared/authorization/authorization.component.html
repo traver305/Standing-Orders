@@ -3,12 +3,15 @@
     <form class="example-form" [formGroup]='responseForm'>
         <mat-form-field appearance="fill" class="px-1">
             <mat-label>PIN</mat-label>
-            <input matInput placeholder="****" formControlName='pin'>
+            <input matInput placeholder="****" formControlName='pin' type="number">
+            <mat-error *ngIf="flag">PIN bol nesprávny</mat-error>
+            <mat-error *ngIf="controls.pin.hasError('required')">PIN musí byť zadaný</mat-error>
+            <mat-error *ngIf="controls.pin.hasError('pattern')">PIN musí obsahovať 4 čísla</mat-error>
         </mat-form-field>
     </form>
     
 </div>
 <div mat-dialog-actions>
-  <button mat-button >No Thanks</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  <button mat-button (click)="sendPin()">Ok</button>
+  <button mat-button (click)="cancel()">Zrušiť</button>
 </div>
