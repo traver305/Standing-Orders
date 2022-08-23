@@ -9,6 +9,7 @@ import { IStandingOrderForm } from '../standing-order-form';
 import { IPeriodicityForm } from 'src/app/shared/periodicity/periodicity-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalpopupComponent } from 'src/app/shared/modalpopup/modalpopup.component';
+import { AuthorizationComponent } from 'src/app/shared/authorization/authorization.component';
 
 
 const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
@@ -92,6 +93,7 @@ export class StandingOrderFormComponent implements OnInit{
     }
 
     goToParentPage():void {
+        this.openAuthorization();
         this.router.navigateByUrl('/standingOrders');
     }
 
@@ -153,6 +155,10 @@ export class StandingOrderFormComponent implements OnInit{
                 }
             })
         ).subscribe();
+    }
+
+    openAuthorization(){
+        const popup = this.matDialog.open(AuthorizationComponent);
     }
 
     get controls(){

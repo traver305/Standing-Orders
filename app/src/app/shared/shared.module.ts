@@ -5,11 +5,13 @@ import { BrowserModule } from "@angular/platform-browser";
 import { MaterialModule } from "./material/material.module";
 import { PeriodicityFormComponent } from "./periodicity/periodicity-form.component";
 import { ModalpopupComponent } from './modalpopup/modalpopup.component';
+import { AuthorizationComponent } from './authorization/authorization.component';
 
 @NgModule({
     declarations: [
         PeriodicityFormComponent,
-        ModalpopupComponent
+        ModalpopupComponent,
+        AuthorizationComponent
     ],
     imports: [
         MaterialModule,
