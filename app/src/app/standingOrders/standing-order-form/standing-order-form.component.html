@@ -20,10 +20,13 @@
             <mat-label>Variabilný symbol</mat-label>
             <input matInput formControlName='variableSymbol'>
         </mat-form-field>
-        <mat-form-field [appearance]="appereance" class="px-1">
-            <mat-label>Konštantný symbol</mat-label>
-            <input matInput formControlName='constantSymbol'>
-        </mat-form-field>
+        <div class="input-group">
+            <mat-form-field [appearance]="appereance" class="px-1">
+                <mat-label>Konštantný symbol</mat-label>
+                <input matInput formControlName='constantSymbol'>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="mx-2" (click)="openPopUp()">Zoznam symbolov</button>
+        </div>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Špecifický symbol</mat-label>
             <input matInput formControlName='specificSymbol'>

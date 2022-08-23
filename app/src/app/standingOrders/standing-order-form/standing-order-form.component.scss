@@ -17,3 +17,20 @@ mat-form-field{
     align-items: center;
     justify-content: center;
 }
+
+.input-group{
+    display: flex;
+    justify-content: center;
+}
+
+.input-group mat-form-field{
+    width: 70%;
+}
+
+.input-group button{
+    width: 30%;
+    margin-bottom: 2%;
+}
+
+
+
