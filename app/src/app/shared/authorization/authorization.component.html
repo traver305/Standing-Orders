@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Zadajte PIN kód z riadku {{ firstNumber }} a stĺpca {{ lastNumber }}</h1>
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]='responseForm'>
+        <mat-form-field appearance="fill" class="px-1">
+            <mat-label>PIN</mat-label>
+            <input matInput placeholder="****" formControlName='pin'>
+        </mat-form-field>
+    </form>
+    
+</div>
+<div mat-dialog-actions>
+  <button mat-button >No Thanks</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>
