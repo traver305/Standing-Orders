@@ -6,14 +6,14 @@ import { StandingOrderFormComponent } from './standing-order-form/standing-order
 
 
 const routes: Routes = [
-    { path: 'standingOrders', component: StandingOrderListComponent },
+    { path: '', component: StandingOrderListComponent},
     { path: 'form', component: StandingOrderFormComponent },
     { path: 'form/:id', component: StandingOrderFormComponent}
 ];
 
 @NgModule({
     declarations: [],
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 export class StandingOrderRoutingModule { }

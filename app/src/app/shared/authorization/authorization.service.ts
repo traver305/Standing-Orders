@@ -21,9 +21,7 @@ export class AuthorizationService {
             }),
             concatMap(() => this.matDialog.open(AuthorizationComponent, {data: {flag: pinError, coordinate: this.coordinate}}).afterClosed().pipe(
                 takeWhile(token => !!token),
-                concatMap(data => this.authorizationHttpService.postGridCard({pin: data, coordinate: this.coordinate}).pipe(
-                    tap(token => {console.log(token)})
-                ))
+                concatMap(data => this.authorizationHttpService.postGridCard({pin: data, coordinate: this.coordinate}))
             )),
             retryWhen(errors => errors.pipe(
                 tap(() => pinError = true),

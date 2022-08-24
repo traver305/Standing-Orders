@@ -15,9 +15,9 @@ import { StandingOrderRoutingModule } from './standing-order.routing.module';
         StandingOrderFormComponent
     ],
     imports: [
+        StandingOrderRoutingModule,
         CommonModule,
         SharedModule,
-        StandingOrderRoutingModule,
         ReactiveFormsModule,
         MaterialModule
     ],

@@ -77,9 +77,7 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     
     changePeriodicity(){
         if(this.periodicity.value.intervalId === intervalDaily){
-            // this.periodicity.controls.intervalSpecification.setValue(0);
             this.periodicity.controls.intervalSpecification.disable();
-            // this.periodicity.controls.intervalSpecification
             this.periodicity.controls.intervalSpecification.reset();
         }
         if(this.periodicity.value.intervalId === intervalWeekly){
@@ -93,12 +91,10 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     }
 
     writeValue(obj: any): void {
-        console.log('periodicity value', obj);
         if (obj) {
             this.periodicity.setValue(obj, {emitEvent: false});
             this.changePeriodicity();
-        }
-        
+        }  
     }
 
     onTouched: Function = () => {};

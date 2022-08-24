@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/standingOrders', pathMatch: 'full' },
-    { path: '**', redirectTo: '/standingOrders', pathMatch: 'full' }
+    { path: 'orders', loadChildren: () => import('./standingOrders/standing-order.module').then(x => x.StandingOrderModule) },
+    { path: '', redirectTo: '/orders', pathMatch: 'full' },
+    { path: '**', redirectTo: '/orders', pathMatch: 'full' }
 ];
 
 @NgModule({

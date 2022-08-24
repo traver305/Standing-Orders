@@ -23,6 +23,7 @@ import { AuthorizationModule } from './shared/authorization/authorization.module
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -30,8 +31,7 @@ import { AuthorizationModule } from './shared/authorization/authorization.module
     SharedModule,
     HttpClientModule,
     StandingOrderModule,
-    AuthorizationModule,
-    AppRoutingModule
+    AuthorizationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
