@@ -9,7 +9,6 @@ import { IStandingOrderForm } from '../standing-order-form';
 import { IPeriodicityForm } from 'src/app/shared/periodicity/periodicity-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalpopupComponent } from 'src/app/shared/modalpopup/modalpopup.component';
-import { AuthorizationComponent } from 'src/app/shared/authorization/authorization.component';
 import { AuthorizationService } from 'src/app/shared/authorization/authorization.service';
 
 
@@ -76,42 +75,18 @@ export class StandingOrderFormComponent implements OnInit{
         if (this.standingOrderForm.valid){
             this.authorizationService.authorization().pipe(
                 takeWhile(token => !!token),
-                tap(token => console.log(token)),
-                mergeMap(() => {
+                mergeMap(token => {
                     if (!this.standingOrderForm.controls.standingOrderId.value) {
-                        return this.standingOrderService.postStandingOrder(this.getValues());
+                        return this.standingOrderService.postStandingOrder(this.getValues(), token);
                     } 
                     else {
-                        return this.standingOrderService.putStandingOrder(this.getValues(), this.standingOrderForm.controls.standingOrderId.value);
+                        return this.standingOrderService.putStandingOrder(this.getValues(), this.standingOrderForm.controls.standingOrderId.value, token);
                     }
                 }),
                 tap(() => this.goToParentPage())
             ).subscribe()
         }                
     }
-
-    // saveForm(): void {
-    //     this.standingOrderForm.markAllAsTouched();
-    //     if (this.standingOrderForm.valid){
-    //         if(!this.standingOrderForm.controls.standingOrderId.value){
-    //             this.standingOrderService.postStandingOrder(this.getValues()).pipe(
-    //                 catchError(err => {
-    //                     console.log(err.message);
-    //                     return of();
-    //                 })
-    //             ).subscribe();
-    //         }
-    //         else{
-    //             this.standingOrderService.putStandingOrder(this.getValues(), this.standingOrderForm.controls.standingOrderId.value).pipe(
-    //                 catchError(err => {
-    //                     console.log(err.message);
-    //                     return of();
-    //                 })
-    //             ).subscribe();
-    //         }
-    //         this.goToParentPage();
-    //     }        
-    // }
 
     goToParentPage():void {
         this.router.navigateByUrl('/standingOrders');
