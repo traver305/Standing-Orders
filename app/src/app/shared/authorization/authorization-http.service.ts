@@ -15,7 +15,6 @@ export class AuthorizationHttpService {
     }
 
     postGridCard(body: IGridCard){
-        console.log(body);
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json'

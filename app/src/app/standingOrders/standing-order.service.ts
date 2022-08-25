@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IStandingOrder } from './standing-order';
 import { IStandingOrderForm } from '../standingOrders/standing-order-form';
 
@@ -26,12 +26,7 @@ export class StandingOrderService {
               'Authorization': token
             })
         };
-        return this.http.post<IStandingOrderForm>('/api/standingOrder', body, httpOptions).pipe(
-            catchError(error => {
-                console.log(error.message);
-                return of();
-            })
-        );
+        return this.http.post<IStandingOrderForm>('/api/standingOrder', body, httpOptions);
     }
 
     putStandingOrder(body: IStandingOrderForm, id:number, token: string | string[]): Observable<string>{
@@ -42,12 +37,7 @@ export class StandingOrderService {
             }),
             'responseType': 'text' as const
         };
-        return this.http.put(`/api/standingOrder/${id}`, body, httpOptions).pipe(
-            catchError(error => {
-                console.log(error.message);
-                return of();
-            })
-        );
+        return this.http.put(`/api/standingOrder/${id}`, body, httpOptions);
     }
 
     deleteStandingOrder(id: number, token: string | string[]){
@@ -58,12 +48,7 @@ export class StandingOrderService {
             }),
             'responseType': 'text' as const
         };
-        return this.http.delete(`/api/standingOrder/${id}`, httpOptions).pipe(
-            catchError(error => {
-                console.log(error.message);
-                return of();
-            })
-        );
+        return this.http.delete(`/api/standingOrder/${id}`, httpOptions);
     }
     
 }

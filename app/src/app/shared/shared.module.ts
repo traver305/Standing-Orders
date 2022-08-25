@@ -6,12 +6,13 @@ import { MaterialModule } from "./material/material.module";
 import { PeriodicityFormComponent } from "./periodicity/periodicity-form.component";
 import { ModalpopupComponent } from './modalpopup/modalpopup.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
+import { IbanFormatPipe } from "./pipes/iban-format.pipe";
 
 @NgModule({
     declarations: [
         PeriodicityFormComponent,
         ModalpopupComponent,
-        AuthorizationComponent
+        IbanFormatPipe
     ],
     imports: [
         MaterialModule,
@@ -20,7 +21,8 @@ import { AuthorizationComponent } from './authorization/authorization.component'
     ],
     exports: [
         PeriodicityFormComponent,
-        ModalpopupComponent
+        ModalpopupComponent,
+        IbanFormatPipe
     ]
 })
 export class SharedModule{}

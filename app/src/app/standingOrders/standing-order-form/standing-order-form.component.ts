@@ -89,7 +89,7 @@ export class StandingOrderFormComponent implements OnInit{
     }
 
     goToParentPage():void {
-        this.router.navigateByUrl('/standingOrders');
+        this.router.navigateByUrl('orders');
     }
 
     ngOnInit(): void {
