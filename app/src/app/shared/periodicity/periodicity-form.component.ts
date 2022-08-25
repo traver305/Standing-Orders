@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit, Self } from "@angular/core";
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from "@angular/forms";
 import { tap } from "rxjs";
 
 export interface ValueTextType {
@@ -25,10 +25,17 @@ export interface IPeriodicityForm {
           provide: NG_VALUE_ACCESSOR,
           multi: true,
           useExisting: PeriodicityFormComponent
+        },
+        {
+          provide: NG_VALIDATORS,
+          multi: true,
+          useExisting: PeriodicityFormComponent
         }
     ]
 })
 export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
+
+    @Input() markTouched: boolean = false;
 
     intervals: ValueTextType[] = [
         {
@@ -47,11 +54,13 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     intervalSpecification: ValueTextType[]= [];
 
-    constructor(private fb: FormBuilder){}
+    constructor(
+        private fb: FormBuilder
+        ){}
 
     periodicity = this.fb.group({
-        intervalId: this.fb.control<number | null>(null),
-        intervalSpecification: this.fb.control<number | null>({value: 0, disabled: true}, {nonNullable: true})   
+        intervalId: this.fb.control<number | null>(null, {validators: Validators.required}),
+        intervalSpecification: this.fb.control<number | null>({value: null, disabled: true}, {nonNullable: true, validators: Validators.required})   
     })
 
     loadDays(){
@@ -76,15 +85,23 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     }
     
     changePeriodicity(){
+        console.log(this.markTouched);
+        if(this.markTouched){
+            console.log('AS TOUCHED');
+            this.periodicity.markAllAsTouched();
+        }
         if(this.periodicity.value.intervalId === intervalDaily){
+            this.periodicity.controls.intervalSpecification.setValue(0, {emitEvent: false})
             this.periodicity.controls.intervalSpecification.disable();
             this.periodicity.controls.intervalSpecification.reset();
         }
         if(this.periodicity.value.intervalId === intervalWeekly){
+            this.periodicity.controls.intervalSpecification.setValue(null, {emitEvent: false})
             this.periodicity.controls.intervalSpecification.enable();
             this.loadDays();
         }
         if(this.periodicity.value.intervalId === intervalMonthly){
+            this.periodicity.controls.intervalSpecification.setValue(null, {emitEvent: false})
             this.periodicity.controls.intervalSpecification.enable();
             this.loadNumbers();
         }
@@ -108,9 +125,36 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
         this.onChange = onChange;
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
         this.periodicity.valueChanges.pipe(
             tap((val) => this.onChange(this.periodicity.getRawValue())),
         ).subscribe();
+    }
+
+    validate(control: AbstractControl): ValidationErrors | null {
+        console.log('validate');
+        // console.log(this.markTouched);
+        
+        this.periodicity.updateValueAndValidity({onlySelf: true});
+        if(this.periodicity.invalid){
+            return { intervalSelectError: true };
+        }
+        return null;
+        // let isNotValid = true;
+        // if(this.periodicity.value.intervalId === null){
+        //     isNotValid = false;
+        // }
+        // else if(this.periodicity.value.intervalId !== intervalDaily && this.periodicity.value.intervalSpecification === 0){
+        //     isNotValid = false;
+        // }
+        // return isNotValid && {
+        //   invalid: true
+        // }
+    }
+
+
+
+    get controls(){
+        return this.periodicity.controls;
     }
 }

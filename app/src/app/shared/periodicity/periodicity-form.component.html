@@ -6,6 +6,7 @@
                 {{interval.text}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="controls.intervalId.hasError('required')">Príjemca je potrebný</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="px-1">
         <mat-select formControlName="intervalSpecification">
@@ -13,5 +14,6 @@
                 {{ option.text }}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="controls.intervalSpecification.hasError('required')">Príjemca je potrebný</mat-error>
     </mat-form-field>
 </form>
