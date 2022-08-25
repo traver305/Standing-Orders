@@ -26,9 +26,8 @@ export class StandingOrderListComponent implements OnInit{
     deleteStandingOrder(id: number){
         this.authorizationService.authorization().pipe(
             takeWhile(token => !!token),
-            tap(token => console.log(token)),
-            mergeMap(() => {
-                return this.standingOrderService.deleteStandingOrder(id);
+            mergeMap(token => {
+                return this.standingOrderService.deleteStandingOrder(id, token);
             }),
             tap(() => this.loadStandingOrders())
         ).subscribe();

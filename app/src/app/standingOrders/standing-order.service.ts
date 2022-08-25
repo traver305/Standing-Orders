@@ -19,10 +19,11 @@ export class StandingOrderService {
         return this.http.get<IStandingOrderForm>(`/api/standingOrder/${id}`);
     }
 
-    postStandingOrder(body: IStandingOrderForm): Observable<IStandingOrderForm>{
+    postStandingOrder(body: IStandingOrderForm, token: string | string[]): Observable<IStandingOrderForm>{
         const httpOptions = {
             headers: new HttpHeaders({
-              'Content-Type':  'application/json'
+              'Content-Type':  'application/json',
+              'Authorization': token
             })
         };
         return this.http.post<IStandingOrderForm>('/api/standingOrder', body, httpOptions).pipe(
@@ -33,10 +34,11 @@ export class StandingOrderService {
         );
     }
 
-    putStandingOrder(body: IStandingOrderForm, id:number): Observable<string>{
+    putStandingOrder(body: IStandingOrderForm, id:number, token: string | string[]): Observable<string>{
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
+              'Authorization': token
             }),
             'responseType': 'text' as const
         };
@@ -48,10 +50,11 @@ export class StandingOrderService {
         );
     }
 
-    deleteStandingOrder(id: number){
+    deleteStandingOrder(id: number, token: string | string[]){
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
+              'Authorization': token
             }),
             'responseType': 'text' as const
         };
