@@ -15,7 +15,7 @@ import { IbanFormatPipe } from './shared/pipes/iban-format.pipe';
 import { StandingOrderFormComponent } from './standingOrders/standing-order-form/standing-order-form.component';
 import { SharedModule } from './shared/shared.module';
 import { StandingOrderModule } from './standingOrders/standing-order.module';
-import { AuthorizationModule } from './shared/authorization/authorization.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 
 @NgModule({

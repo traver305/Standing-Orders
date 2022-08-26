@@ -9,7 +9,7 @@ import { IStandingOrderForm } from '../standing-order-form';
 import { IPeriodicityForm } from 'src/app/shared/periodicity/periodicity-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalpopupComponent } from 'src/app/shared/modalpopup/modalpopup.component';
-import { AuthorizationService } from 'src/app/shared/authorization/authorization.service';
+import { AuthorizationService } from 'src/app/authorization/authorization.service';
 
 
 const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
