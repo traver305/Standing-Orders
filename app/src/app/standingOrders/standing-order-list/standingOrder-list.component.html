@@ -33,8 +33,8 @@
                                 <span>IBAN: {{ element.accountNumber | ibanFormat}}</span>
                             </div>
                             <div class="col-4 hide">
-                                <a mat-raised-button color="primary" class="me-2 mt-1" [routerLink]="['form', element.standingOrderId]">Upraviť</a>
-                                <button mat-raised-button color="warn" class="ms-2 mt-1" (click)="deleteStandingOrder(element.standingOrderId)">Zrušiť</button>
+                                <a mat-stroked-button color="primary" class="me-2 mt-1" [routerLink]="['form', element.standingOrderId]">Upraviť</a>
+                                <button mat-stroked-button color="warn" class="ms-2 mt-1" (click)="deleteStandingOrder(element.standingOrderId)">Zrušiť</button>
                             </div>
                         </div>
                     </div>
