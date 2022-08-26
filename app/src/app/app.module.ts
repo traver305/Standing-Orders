@@ -26,7 +26,6 @@ import { AuthorizationModule } from './authorization/authorization.module';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
