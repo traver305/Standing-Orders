@@ -1,11 +1,12 @@
 <form [formGroup]="periodicity">
     <mat-form-field appearance="fill" class="px-1">
         <mat-label>Periodicita</mat-label>
-        <mat-select formControlName="intervalId" (selectionChange)="changePeriodicity()">
+        <mat-select formControlName="intervalId">
             <mat-option *ngFor="let interval of intervals" [value]="interval.value">
                 {{interval.text}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="controls.intervalId.hasError('required')">Periodicita je potrebná</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="px-1">
         <mat-select formControlName="intervalSpecification">
@@ -13,5 +14,6 @@
                 {{ option.text }}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="controls.intervalSpecification.hasError('required')">Špecifikácia periodicity je potrebná</mat-error>
     </mat-form-field>
 </form>

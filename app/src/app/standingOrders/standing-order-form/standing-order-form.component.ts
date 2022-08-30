@@ -21,6 +21,7 @@ const IBAN_REGEX = '([A-Z]{2}[\\d]{22})';
 })
 export class StandingOrderFormComponent implements OnInit{
 
+    periodicityTouched = false;
 
     actualDate: Date = new Date();
 
@@ -41,7 +42,8 @@ export class StandingOrderFormComponent implements OnInit{
             nonNullable: true
         }),
         name: new FormControl('', {
-            nonNullable: true
+            nonNullable: true,
+            validators: Validators.required
         }),
         accountNumber: new FormControl('', {
             nonNullable: true,
@@ -67,10 +69,13 @@ export class StandingOrderFormComponent implements OnInit{
             nonNullable: true,
             validators: Validators.required
         }),
-        period: new FormControl<IPeriodicityForm | null>(null)
+        period: new FormControl<IPeriodicityForm | null>(null, {
+            validators: Validators.required
+        })
     });
 
     saveForm(): void {
+        this.periodicityTouched = true;
         this.standingOrderForm.markAllAsTouched();
         if (this.standingOrderForm.valid){
             this.authorizationService.authorization().pipe(

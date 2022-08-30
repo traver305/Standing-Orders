@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit, Self, SimpleChanges } from "@angular/core";
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from "@angular/forms";
 import { tap } from "rxjs";
 
 export interface ValueTextType {
@@ -25,10 +25,17 @@ export interface IPeriodicityForm {
           provide: NG_VALUE_ACCESSOR,
           multi: true,
           useExisting: PeriodicityFormComponent
+        },
+        {
+          provide: NG_VALIDATORS,
+          multi: true,
+          useExisting: PeriodicityFormComponent
         }
     ]
 })
 export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
+
+    @Input() markTouched: boolean = false;
 
     intervals: ValueTextType[] = [
         {
@@ -47,11 +54,13 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     intervalSpecification: ValueTextType[]= [];
 
-    constructor(private fb: FormBuilder){}
+    constructor(
+        private fb: FormBuilder
+        ){}
 
     periodicity = this.fb.group({
-        intervalId: this.fb.control<number | null>(null),
-        intervalSpecification: this.fb.control<number | null>({value: 0, disabled: true}, {nonNullable: true})   
+        intervalId: this.fb.control<number | null>(null, {validators: Validators.required}),
+        intervalSpecification: this.fb.control<number | null>({value: null, disabled: true}, {validators: Validators.required})   
     })
 
     loadDays(){
@@ -77,14 +86,16 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
     
     changePeriodicity(){
         if(this.periodicity.value.intervalId === intervalDaily){
+            this.periodicity.controls.intervalSpecification.setValue(0);
             this.periodicity.controls.intervalSpecification.disable();
-            this.periodicity.controls.intervalSpecification.reset();
         }
         if(this.periodicity.value.intervalId === intervalWeekly){
+            this.periodicity.controls.intervalSpecification.setValue(null);
             this.periodicity.controls.intervalSpecification.enable();
             this.loadDays();
         }
         if(this.periodicity.value.intervalId === intervalMonthly){
+            this.periodicity.controls.intervalSpecification.setValue(null);
             this.periodicity.controls.intervalSpecification.enable();
             this.loadNumbers();
         }
@@ -92,8 +103,7 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     writeValue(obj: any): void {
         if (obj) {
-            this.periodicity.setValue(obj, {emitEvent: false});
-            this.changePeriodicity();
+            this.periodicity.patchValue(obj);
         }  
     }
 
@@ -108,9 +118,33 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
         this.onChange = onChange;
     }
 
-    ngOnInit(): void {
-        this.periodicity.valueChanges.pipe(
-            tap((val) => this.onChange(this.periodicity.getRawValue())),
+    ngOnInit(): void {     
+        this.periodicity.controls.intervalId.valueChanges.pipe(
+            tap(() => this.onChange(this.periodicity.getRawValue())),
+            tap(() => this.changePeriodicity())
         ).subscribe();
+
+        this.periodicity.controls.intervalSpecification.valueChanges.pipe(
+            tap(() => this.onChange(this.periodicity.getRawValue()))
+        ).subscribe();
+    }
+
+    validate(control: AbstractControl): ValidationErrors | null {  
+        this.periodicity.updateValueAndValidity({emitEvent: false});
+        if(this.periodicity.invalid){
+            return { intervalSelectError: true };
+        }
+        return null;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        const markT = changes;
+        if(markT && this.markTouched){
+            this.periodicity.markAllAsTouched();
+        }
+      }
+
+    get controls(){
+        return this.periodicity.controls;
     }
 }

@@ -3,6 +3,7 @@
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>Príjemca</mat-label>
             <input matInput placeholder="Meno Priezvisko" formControlName='name'>
+            <mat-error *ngIf="controls.name.hasError('required')">Príjemca je potrebný</mat-error>
         </mat-form-field>
         <mat-form-field [appearance]="appereance" class="px-1">
             <mat-label>IBAN</mat-label>
@@ -31,7 +32,7 @@
             <mat-label>Špecifický symbol</mat-label>
             <input matInput formControlName='specificSymbol'>
         </mat-form-field>
-        <periodicity-form formControlName="period"></periodicity-form>
+        <periodicity-form formControlName="period" [markTouched]="periodicityTouched"></periodicity-form>
         <mat-form-field [appearance]="appereance" class="px-1" >
             <mat-label>Poznámka pre príjemcu</mat-label>
             <textarea matInput formControlName='note'></textarea>
