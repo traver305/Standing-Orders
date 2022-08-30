@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { catchError, finalize, mergeMap, Observable, takeWhile, tap } from "rxjs";
-import { AuthorizationService } from "src/app/shared/authorization/authorization.service";
+import { AuthorizationService } from "src/app/authorization/authorization.service";
 import { IStandingOrder } from "../standing-order";
 import { StandingOrderService } from "../standing-order.service";
 
