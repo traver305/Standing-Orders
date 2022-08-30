@@ -27,14 +27,14 @@
                 <td mat-cell *matCellDef="let element">
                     <div class="container">
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <h2 class="m-0">{{ element.name | uppercase }}</h2>
                                 <span class="interval me-2">{{ element.interval }}</span>
                                 <span>IBAN: {{ element.accountNumber | ibanFormat}}</span>
                             </div>
-                            <div class="col-3 hide">
-                                <a mat-raised-button color="primary" [routerLink]="['form', element.standingOrderId]">Upraviť</a>
-                                <button mat-raised-button color="warn" (click)="deleteStandingOrder(element.standingOrderId)">Zrušiť</button>
+                            <div class="col-4 hide">
+                                <a mat-stroked-button color="primary" class="me-2 mt-1" [routerLink]="['form', element.standingOrderId]">Upraviť</a>
+                                <button mat-stroked-button color="warn" class="ms-2 mt-1" (click)="deleteStandingOrder(element.standingOrderId)">Zrušiť</button>
                             </div>
                         </div>
                     </div>

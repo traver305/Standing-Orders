@@ -84,19 +84,19 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
         });
     }
     
-    changePeriodicity(){
-        if(this.periodicity.value.intervalId === intervalDaily){
-            this.periodicity.controls.intervalSpecification.setValue(0);
-            this.periodicity.controls.intervalSpecification.disable();
+    changePeriodicity(intervalId: number | null){
+        if(intervalId === intervalDaily){
+            this.periodicity.controls.intervalSpecification.setValue(0, {emitEvent:false});
+            this.periodicity.controls.intervalSpecification.disable({emitEvent:false});
         }
-        if(this.periodicity.value.intervalId === intervalWeekly){
-            this.periodicity.controls.intervalSpecification.setValue(null);
-            this.periodicity.controls.intervalSpecification.enable();
+        if(intervalId === intervalWeekly){
+            this.periodicity.controls.intervalSpecification.setValue(null, {emitEvent:false});
+            this.periodicity.controls.intervalSpecification.enable({emitEvent:false});
             this.loadDays();
         }
-        if(this.periodicity.value.intervalId === intervalMonthly){
-            this.periodicity.controls.intervalSpecification.setValue(null);
-            this.periodicity.controls.intervalSpecification.enable();
+        if(intervalId === intervalMonthly){
+            this.periodicity.controls.intervalSpecification.setValue(null, {emitEvent:false});
+            this.periodicity.controls.intervalSpecification.enable({emitEvent:false});
             this.loadNumbers();
         }
     }
@@ -120,8 +120,8 @@ export class PeriodicityFormComponent implements ControlValueAccessor, OnInit{
 
     ngOnInit(): void {     
         this.periodicity.controls.intervalId.valueChanges.pipe(
-            tap(() => this.onChange(this.periodicity.getRawValue())),
-            tap(() => this.changePeriodicity())
+            tap((intervalId) => this.changePeriodicity(intervalId)),
+            tap(() => this.onChange(this.periodicity.getRawValue()))
         ).subscribe();
 
         this.periodicity.controls.intervalSpecification.valueChanges.pipe(

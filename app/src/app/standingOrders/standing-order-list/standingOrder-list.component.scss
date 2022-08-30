@@ -1,4 +1,4 @@
-$background-color: #bab1f0;
+$background-color: #bab1f08c;
 $text-color: #2f2570;
 $border: 1px solid rgba(0, 0, 0, 0.12);
 
@@ -28,13 +28,6 @@ $border: 1px solid rgba(0, 0, 0, 0.12);
     border-top: $border;
 }
 
-.mat-column-info a{
-    transform: scale(0.7);
-}
-.mat-column-info button{
-    transform: scale(0.7);
-}
-
 .interval{
     background-color: #5b5775;
     border-radius: 5px;
@@ -45,7 +38,7 @@ $border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .mat-row:nth-child(odd){
-    background-color: #adadadae;
+    background-color: #a1a1a193;
 }
 
 .hide {
